@@ -1,30 +1,29 @@
 package com.mehedihasanbangladeshi.encryptdecryptdemo1;
 
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.ViewModel;
 
-public class MainActivityViewModel extends ViewModel {
+public class MainActivityViewModel extends AndroidViewModel {
 
-    AES aes;
+    DataRepository dataRepository;
 
-    public String encryptData(String data, String password){
-        aes = new AES();
-        try {
-            return aes.encrypt(data, password);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
+    public MainActivityViewModel(@NonNull Application application) {
+        super(application);
+        dataRepository = new DataRepository(application);
     }
 
-    public String decryptData(String data, String password){
-        try {
-            return aes.decrypt(data, password);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
+    public String encrypt(String s, String pass){
+        return dataRepository.encryptData(s, pass);
     }
+
+    public String decrypt(String s, String pass){
+        return dataRepository.decryptData(s, pass);
+    }
+
+
+
 
 }

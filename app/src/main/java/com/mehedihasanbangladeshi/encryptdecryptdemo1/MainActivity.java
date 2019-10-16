@@ -37,9 +37,10 @@ import javax.crypto.spec.SecretKeySpec;
 
             try {
 
-                String msg = viewModel.encryptData(binding.text.getText().toString(), binding.pass.getText().toString());
+                String msg = viewModel.encrypt(binding.text.getText().toString(), binding.pass.getText().toString());
 
-                binding.text.setText(msg);
+                binding.msg.setText(msg);
+                binding.text.getText().clear();
                 binding.pass.getText().clear();
             }catch (Exception e){
                 e.printStackTrace();
@@ -54,18 +55,28 @@ import javax.crypto.spec.SecretKeySpec;
         public void onClick(View view) {
             try {
 
-                String msg = viewModel.decryptData(binding.text.getText().toString(), binding.pass.getText().toString());
+                String msg = viewModel.decrypt(binding.text.getText().toString(), binding.pass.getText().toString());
 
                 if (msg.isEmpty()){
 
                 }
-                binding.text.setText(msg);
+                binding.msg.setText(msg);
+                binding.text.getText().clear();
                 binding.pass.getText().clear();
 
             }catch (Exception e){
                 e.printStackTrace();
             }
 
+        }
+    });
+
+    binding.msg.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (binding.msg.getText().length() != 0){
+                binding.text.setText(binding.msg.getText().toString());
+            }
         }
     });
 
